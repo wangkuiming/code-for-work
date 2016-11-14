@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-service>
+	<cluster>
+		<id>llmj-pay-gaoyang-service</id>
+		<snode>
+			<id>server1</id>
+ 			<url>qa-pay.lenglianmajia.com</url> 
+			<serviceName></serviceName>
+			<hessianServiceName>remote/gaoyangService</hessianServiceName>
+			<trailnumber></trailnumber>
+			<hessianuser></hessianuser>
+		</snode>
+	</cluster>
+</test-service>

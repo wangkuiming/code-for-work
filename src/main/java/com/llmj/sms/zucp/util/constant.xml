@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	
+	<element>
+		<description>手机号码变量名称</description>
+		<key>MSG_MOBILE_NO_NAME</key>
+		<value>mobileNO</value>
+	</element>
+	
+	<element>
+		<description>验证码名称</description>
+		<key>MSG_REGISTER_CODE</key>
+		<value>registerCode</value>
+	</element>
+	
+	<element>
+		<description>短信模板编号变量名称</description>
+		<key>MSG_SMS_TEMPLET</key>
+		<value>smsNO</value>
+	</element>
+	
+	<element>
+		<description>系统名称</description>
+		<key>MSG_SYSTEM_NAME</key>
+		<value>sendSource</value>
+	</element>
+	
+	<element>
+		<description>验证串</description>
+		<key>VERIFYSTRING</key>
+		<value>verifyString</value>
+	</element>
+	
+	<element>
+		<description>发送短信加密字符串</description>
+		<key>MSG_MERCHANT_KEY</key>
+		<value>ABC789</value>
+<!--		<value>RESUKA</value>-->
+	</element>
+	<element>
+		<description>短信发送URL</description>
+		<key>SENDURL</key>
+		<value>http://sdk2.entinfo.cn:8061/webservice.asmx/mdsmssend</value>
+	</element>
+	<element>
+		<description>短信查询余额URL</description>
+		<key>BALANCE</key>
+		<value>http://sdk.entinfo.cn:8060/webservice.asmx/balance</value>
+	</element>
+	<element>
+		<description>短信报警临界值</description>
+		<key>WARNING_COUNT</key>
+		<value>10000</value>
+	</element>
+	<element>
+		<description>报警短信接受人</description>
+		<key>WARNING_MAN</key>
+		<value>18610757793,13651378400</value>
+	</element>
+	<element>
+		<description>报警短信内容</description>
+		<key>WARNING_CONTENT</key>
+		<value>您好，鲜易网短信平台剩余短信仅剩{count}条，请联系相关人员进行短信平台充值!</value>
+	</element>
+	<element>
+		<description>报警开关</description>
+		<key>WARNING_FlAG</key>
+		<value>30</value>
+	</element>
+	<element>
+		<description>注册验证码单日限制条数</description>
+		<key>REG_CODE</key>
+		<!--  测试 -->
+		<value>10</value>
+	</element>
+	<element>
+		<description>找回密码单日限制条数</description>
+		<key>BACK_PASS</key>
+		<!--  测试 -->
+		<value>10</value>
+	</element>
+</root>

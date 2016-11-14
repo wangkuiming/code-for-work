@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>llmj-app-api.root</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:context/applicationContext-*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- logback-begin -->
+	<context-param>
+		<param-name>logbackConfigLocation</param-name>
+		<param-value>classpath:logs/logback.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.llmj.common.utils.logback.LogbackConfigListener</listener-class>
+	</listener>
+	<!-- logback-end -->
+
+	<!-- SpringMVC -->
+	<servlet>
+		<servlet-name>springMvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+    <!-- 编码 -->
+    <filter>
+        <filter-name>Spring CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Spring CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<!-- XSS过滤器 -->
+     <filter>
+        <filter-name>XssFilter</filter-name>
+        <filter-class>
+           	com.llmj.util.XssFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>XssFilter</filter-name>
+        <url-pattern>*.shtml</url-pattern>
+    </filter-mapping> 
+    <!-- SQL关键词注入过滤器 -->
+    <filter>
+        <filter-name>PreventSqlInject</filter-name>
+        <filter-class>com.llmj.common.utils.xss.SqlInjectFilter</filter-class>
+        <!--filter word, split with blank-->
+        <init-param>
+            <param-name>invalidsql</param-name>
+            <param-value>select insert delete from update create where union destory drop alter and or like exec count chr mid master truncate char declare ; - ' % | $ % @ " + cr lf , . script document eval
+            </param-value>
+        </init-param>
+        <!--error page-->
+        <init-param>
+            <param-name>error</param-name>
+            <param-value>/sqlerrors.shtml</param-value>
+        </init-param>
+        <!--debug-->
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>PreventSqlInject</filter-name>
+        <url-pattern>*.sql</url-pattern>
+    </filter-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>springMvc</servlet-name>
+		<url-pattern>*.shtml</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 验证码 -->
+	<servlet>
+		<servlet-name>Captcha</servlet-name>
+		<servlet-class>com.llmj.util.CaptchaServlet</servlet-class>
+    </servlet>
+    
+	<servlet-mapping>    
+		<servlet-name>Captcha</servlet-name>    
+		<url-pattern>/captcha.jpg</url-pattern>    
+	</servlet-mapping> 
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.gif</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.png</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.woff</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.ttf</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llmj.web.mapper.OldDatabaseMapper">
+
+	<select id="queryOldDataNum" parameterType="string" resultType="int">
+		select count(*) from mj_order where (ORDER_TYPE = 'GC' or ORDER_TYPE = 'GC') and ORDER_STATE != 1 and ORDER_STATE != 5
+	</select>
+
+	<select id="queryOldData" parameterType="map" resultType="map">
+		select * from (select
+		ROWNUM ss,
+		ORDER_NO ,
+		ORDER_STATE ,
+		to_char(CREATE_TIME ,'yyyy-mm-dd hh24:mi:ss')  CREATE_TIME,
+		PRICE ,
+		PRICE as PRICE1 ,
+		PAY_TYPE ,
+		ORDER_TYPE ,
+		PAY_STATE ,
+		to_char(PAY_STATE_TIME ,'yyyy-mm-dd hh24:mi:ss') PAY_STATE_TIME ,
+		PAY_MODE ,
+		RECEIPT_NO ,
+		RECEIPT_PICS ,
+		to_char(RECEIPT_UPDATE_TIME ,'yyyy-mm-dd hh24:mi:ss') RECEIPT_UPDATE_TIME,
+		RECEIPT_BATCH_NO ,
+		RECEIPT_UPDATE_USER_ID ,
+		to_char(ORDER_FINISH_TIME ,'yyyy-mm-dd hh24:mi:ss') ORDER_FINISH_TIME,
+		VERSION ,
+		CREATE_USER ,
+		to_char(UPDATE_TIME ,'yyyy-mm-dd hh24:mi:ss') UPDATE_TIME ,
+		UPDATE_USER ,
+		IS_DEL as DEL_FLAG ,
+		ADVANCE ,
+		PRICE_TYPE ,
+		DEL_USER ,
+		PAY_REMARK ,
+		to_char(STATE_TRIGGER_TIME ,'yyyy-mm-dd hh24:mi:ss') STATE_TRIGGER_TIME ,
+		SUB_STATE ,
+		to_char(DEL_TIME ,'yyyy-mm-dd hh24:mi:ss') DEL_TIME
+		from mj_order order by ss) bbb where bbb.ss= #{rowNum}
+	</select>
+</mapper>

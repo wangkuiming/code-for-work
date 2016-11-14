@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-service>
+	<cluster>
+		<id>llmj-pay-citic-server</id>
+		<snode>
+			<id>server1</id>
+ 			<url>qa-pay.lenglianmajia.com</url> 
+			<serviceName></serviceName>
+			<hessianServiceName>remote/citicService</hessianServiceName>
+			<trailnumber></trailnumber>
+			<hessianuser></hessianuser>
+		</snode>
+	</cluster>
+</test-service>

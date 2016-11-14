@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.llmj.web.mapper.NewDatabaseMapper">
+
+<insert id="insertData" parameterType="map">
+Insert into NEWLLMJ.MJ_ORDER
+		(
+		ID
+LINE_PERSON_USER_ID
+LINE_PERSON_NAME
+ORDER_NO
+PHONE
+DEL_FLAG
+VERSION
+CREATE_TIME
+CREATE_USER
+UPDATE_TIME
+UPDATE_USER
+LINE_ID
+ARRIVED_FLAG
+			)
+		values
+		(
+		ID
+LINE_PERSON_USER_ID
+LINE_PERSON_NAME
+ORDER_NO
+PHONE
+DEL_FLAG
+VERSION
+CREATE_TIME
+CREATE_USER
+UPDATE_TIME
+UPDATE_USER
+LINE_ID
+ARRIVED_FLAG
+		)
+</insert>
+
+<!-- 	
+		mj_order表
+<insert id="insertData" parameterType="map">
+		Insert into NEWLLMJ.MJ_ORDER
+		(
+		ORDER_NO ,
+		ORDER_STATE ,
+		CREATE_TIME ,
+		PRICE ,
+		PRICE1 ,
+		PAY_TYPE ,
+		ORDER_TYPE ,
+		<if test="PAY_STATE_TIME != null ">
+			PAY_STATE_TIME,
+		</if>
+		<if test="PAY_MODE != null ">
+			PAY_MODE,
+		</if>
+		<if test="RECEIPT_NO != null ">
+			RECEIPT_NO,
+		</if>
+		<if test="RECEIPT_PICS != null ">
+			RECEIPT_PICS,
+		</if>
+		<if test="RECEIPT_UPDATE_TIME != null ">
+			RECEIPT_UPDATE_TIME,
+		</if>
+		<if test="RECEIPT_BATCH_NO != null ">
+			RECEIPT_BATCH_NO,
+		</if>
+		<if test="RECEIPT_UPDATE_USER_ID != null ">
+			RECEIPT_UPDATE_USER_ID,
+		</if>
+		<if test="ORDER_FINISH_TIME != null ">
+			ORDER_FINISH_TIME,
+		</if>
+		<if test="VERSION != null ">
+			VERSION,
+		</if>
+		<if test="CREATE_USER != null ">
+			CREATE_USER,
+		</if>
+		<if test="UPDATE_TIME != null ">
+			UPDATE_TIME,
+		</if>
+		<if test="UPDATE_USER != null ">
+			UPDATE_USER,
+		</if>
+		<if test="IS_DEL != null ">
+			DEL_FLAG,
+		</if>
+		<if test="ADVANCE != null ">
+			ADVANCE,
+		</if>
+		<if test="PRICE_TYPE != null ">
+			PRICE_TYPE,
+		</if>
+		<if test="DEL_USER != null ">
+			DEL_USER,
+		</if>
+		<if test="PAY_REMARK != null ">
+			PAY_REMARK,
+		</if>
+		<if test="STATE_TRIGGER_TIME != null ">
+			STATE_TRIGGER_TIME,
+		</if>
+		<if test="SUB_STATE != null ">
+			SUB_STATE,
+		</if>
+		<if test="DEL_TIME != null ">
+			DEL_TIME,
+		</if>
+		PAY_STATE
+		)
+		values
+		(
+		#{ORDER_NO },
+		#{ORDER_STATE },
+		to_date(#{CREATE_TIME },'yyyy-mm-dd hh24:mi:ss'),
+		#{PRICE },
+		#{PRICE1 },
+		#{PAY_TYPE },
+		#{ORDER_TYPE },
+		<if test="PAY_STATE_TIME != null ">
+			to_date(#{PAY_STATE_TIME },'yyyy-mm-dd hh24:mi:ss'),
+		</if>
+		<if test="PAY_MODE != null ">
+			#{PAY_MODE },
+		</if>
+		<if test="RECEIPT_NO != null ">
+			#{RECEIPT_NO },
+		</if>
+		<if test="RECEIPT_PICS != null ">
+			#{RECEIPT_PICS },
+		</if>
+		<if test="RECEIPT_UPDATE_TIME != null ">
+			to_date(#{RECEIPT_UPDATE_TIME },'yyyy-mm-dd hh24:mi:ss'),
+		</if>
+		<if test="RECEIPT_BATCH_NO != null ">
+			#{RECEIPT_BATCH_NO },
+		</if>
+		<if test="RECEIPT_UPDATE_USER_ID != null ">
+			#{RECEIPT_UPDATE_USER_ID },
+		</if>
+		<if test="ORDER_FINISH_TIME != null ">
+			to_date(#{ORDER_FINISH_TIME },'yyyy-mm-dd hh24:mi:ss'),
+		</if>
+		<if test="VERSION != null ">
+			#{VERSION },
+		</if>
+		<if test="CREATE_USER != null ">
+			#{CREATE_USER },
+		</if>
+		<if test="UPDATE_TIME != null ">
+			to_date(#{UPDATE_TIME },'yyyy-mm-dd hh24:mi:ss'),
+		</if>
+		<if test="UPDATE_USER != null ">
+			#{UPDATE_USER },
+		</if>
+		<if test="IS_DEL != null ">
+			#{IS_DEL },
+		</if>
+		<if test="ADVANCE != null ">
+			#{ADVANCE },
+		</if>
+		<if test="PRICE_TYPE != null ">
+			#{PRICE_TYPE },
+		</if>
+		<if test="DEL_USER != null ">
+			#{DEL_USER },
+		</if>
+		<if test="PAY_REMARK != null ">
+			#{PAY_REMARK },
+		</if>
+		<if test="STATE_TRIGGER_TIME != null ">
+			to_date(#{STATE_TRIGGER_TIME },'yyyy-mm-dd hh24:mi:ss'),
+		</if>
+		<if test="SUB_STATE != null ">
+			#{SUB_STATE },
+		</if>
+		<if test="DEL_TIME != null ">
+			to_date(#{DEL_TIME },'yyyy-mm-dd hh24:mi:ss'),
+		</if>
+		#{PAY_STATE }
+		)
+	</insert> -->
+
+</mapper>

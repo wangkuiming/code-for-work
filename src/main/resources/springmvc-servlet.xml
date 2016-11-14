@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<description>SringMVC</description>
+	<!-- 启动注解 -->
+	<mvc:annotation-driven validator="validator"/>
+
+	<!-- 以下validator ConversionService 在使用 mvc:annotation-driven 会自动注册 by chenlong -->      
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">          
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+	    
+	    <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+	    <property name="validationMessageSource" ref="messageSource"/>
+	</bean>
+	
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制）by chenlong- -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+	        <list>
+	            <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->
+	            <value>classpath:org/hibernate/validator/ValidationMessages</value>
+	        </list>
+        </property>
+	    <property name="useCodeAsDefaultMessage" value="false"/>
+	    <property name="defaultEncoding" value="UTF-8"/>
+	    <property name="cacheSeconds" value="60"/>
+    </bean>
+	<!-- 如果此处扫描service会导致spring事务失效 -->
+	<context:component-scan base-package="com.llmj">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+	
+	<!-- 文件上传解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="defaultEncoding" value="UTF-8"/>  
+    	 <!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->  
+		<property name="maxUploadSize" value="10240000000"></property>
+		<property name="resolveLazily" value="true"></property>
+	</bean>
+	
+	<!-- 异常解析器 -->
+	<bean id="simpleMappingExceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!-- 方法不支持错误 -->
+				<prop
+					key="org.springframework.web.HttpRequestMethodNotSupportedException">common/500</prop>
+			</props>
+		</property>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- <bean id="cfcaService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="http://qa-pay.lenglianmajia.com/remote/cfcaService" />
+        <property name="serviceInterface" value="com.llmj.service.CfcaService" />
+        新增overloadEnabled属性，并把它的值设置为true，默认是false，则Hessian就能支持方法的重载了。
+        <property name="overloadEnabled" value="true" />
+    </bean> -->
+    
+    <!-- 消息队列配置 开始 -->
+	    <!-- 配置JMS连接工厂 -->
+	    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+	        <property name="brokerURL" value="failover:(tcp://192.168.26.176:61617)" />
+	        <property name="userName" value="admin"/>
+	        <property name="password" value="admin"/>
+	    </bean>
+	
+	    <!-- 定义消息队列（Queue） -->
+<!-- 	    <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue"> -->
+	        <!-- 设置消息队列的名字 -->
+<!-- 	        <constructor-arg> -->
+<!-- 	            <value>llmjAppQueueCmsSearch</value> -->
+<!-- 	        </constructor-arg> -->
+<!-- 	    </bean> -->
+	
+	    <!-- 配置JMS模板（Queue），Spring提供的JMS工具类，它发送、接收消息。 -->
+	    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+	        <property name="connectionFactory" ref="connectionFactory" />
+<!-- 	        <property name="defaultDestination" ref="queueDestination" /> -->
+	        <property name="receiveTimeout" value="50000" />
+	    </bean>
+	    
+	     <bean id="messageSender" class="com.llmj.mq.LlmjMqQueuesMessageSender">  
+        	<constructor-arg index="0" ref="jmsTemplate"/>  
+    	 </bean> 
+    <!-- 消息队列配置 结束 -->
+<!--     
+    <mvc:interceptors>  
+        <mvc:interceptor>
+            <mvc:mapping path="/*/*.shtml" />
+            <bean class="com.llmj.util.LlmjAppInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors> -->
+    
+</beans>
